@@ -1014,6 +1014,27 @@ p {
   padding: 24px 0;
   text-align: center;
   font-size: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.pixelmind-ad {
+  display: inline-block;
+  transition: transform var(--transition-medium), opacity var(--transition-medium);
+  opacity: 0.8;
+}
+
+.pixelmind-ad:hover {
+  transform: scale(1.02);
+  opacity: 1;
+}
+
+.pixelmind-ad img {
+  height: 50px;
+  width: auto;
+  border-radius: 8px;
 }
 
 /* ---- About Page ---- */
