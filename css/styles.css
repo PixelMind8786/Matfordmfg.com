@@ -285,7 +285,7 @@ p {
   bottom: 0;
   background: var(--color-navy);
   z-index: 999;
-  padding: 100px 24px 40px;
+  padding: 160px 24px 40px;
   opacity: 0;
   visibility: hidden;
   transition: all var(--transition-medium);
