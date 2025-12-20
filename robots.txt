@@ -1,0 +1,7 @@
+# Matford Manufacturing
+# https://matfordmfg.com
+
+User-agent: *
+Allow: /
+
+Sitemap: https://matfordmfg.com/sitemap.xml
