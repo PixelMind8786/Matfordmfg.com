@@ -1001,7 +1001,9 @@ p {
 }
 
 .footer-cert img {
-  height: 120px;
+  height: auto;
+  max-width: 150px;
+  width: 100%;
   margin: 0 auto 16px;
 }
 
