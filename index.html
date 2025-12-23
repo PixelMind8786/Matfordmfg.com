@@ -21,6 +21,7 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/carousel.css">
 </head>
 
 <body>
@@ -152,15 +153,55 @@
     </div>
   </section>
 
-  <!-- ISO Trust Banner -->
-  <section class="trust-banner">
+  <!-- Product Gallery -->
+  <section class="section section-light product-gallery-section">
     <div class="container">
-      <img src="images/NQA ISO 9001 Logo - UKAS.jpg" alt="ISO 9001 Certified">
-      <div class="trust-banner-text">
-        <h3>ISO 9001:2015 Certified</h3>
-        <p>Certificate No. 26080 | Quality Management You Can Rely On</p>
+      <div class="section-header">
+        <h2>Our Precision Products</h2>
+        <p>Examples of the high-quality components we manufacture</p>
+      </div>
+      <div class="product-carousel">
+        <div class="carousel-track-container">
+          <div class="carousel-track" id="productCarousel">
+            <div class="carousel-slide">
+              <img src="images/product-hero-1.png" alt="Precision manufactured product 1">
+            </div>
+            <div class="carousel-slide">
+              <img src="images/product-hero-2.png" alt="Precision manufactured product 2">
+            </div>
+            <div class="carousel-slide">
+              <img src="images/product-hero-3.png" alt="Precision manufactured product 3">
+            </div>
+            <div class="carousel-slide">
+              <img src="images/product-hero-4.png" alt="Precision manufactured product 4">
+            </div>
+            <div class="carousel-slide">
+              <img src="images/product-hero-5.png" alt="Precision manufactured product 5">
+            </div>
+            <div class="carousel-slide">
+              <img src="images/product-hero-6.png" alt="Precision manufactured product 6">
+            </div>
+          </div>
+        </div>
+        <button class="carousel-button carousel-button--left" aria-label="Previous product">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="carousel-button carousel-button--right" aria-label="Next product">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="carousel-dots"></div>
       </div>
     </div>
+  </section>
+
+  <!-- ISO Trust Banner -->
+  <div class="container">
+    <img src="images/NQA ISO 9001 Logo - UKAS.jpg" alt="ISO 9001 Certified">
+    <div class="trust-banner-text">
+      <h3>ISO 9001:2015 Certified</h3>
+      <p>Certificate No. 26080 | Quality Management You Can Rely On</p>
+    </div>
+  </div>
   </section>
 
   <!-- CTA Section -->
@@ -213,6 +254,10 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/carousel.js"></script>
+
+  <!-- PixelMind Labs Analytics -->
+  <script src="http://localhost:3000/api/tracker/matford-mfg.js" async></script>
 </body>
 
 </html>
