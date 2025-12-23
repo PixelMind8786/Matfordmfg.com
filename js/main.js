@@ -3,7 +3,7 @@
  * Handles: Mobile navigation, sticky header, smooth scroll, form handling
  */
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   // ========================================
   // Mobile Navigation Toggle
   // ========================================
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const header = document.getElementById('header');
 
   if (navToggle && mobileNav) {
-    navToggle.addEventListener('click', function() {
+    navToggle.addEventListener('click', function () {
       this.classList.toggle('active');
       mobileNav.classList.toggle('active');
       document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Close mobile nav when clicking a link
     const mobileLinks = mobileNav.querySelectorAll('a');
     mobileLinks.forEach(link => {
-      link.addEventListener('click', function() {
+      link.addEventListener('click', function () {
         navToggle.classList.remove('active');
         mobileNav.classList.remove('active');
         document.body.style.overflow = '';
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function handleScroll() {
     const currentScroll = window.pageYOffset;
-    
+
     if (header) {
       if (currentScroll > scrollThreshold) {
         header.classList.add('scrolled');
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         header.classList.remove('scrolled');
       }
     }
-    
+
     lastScroll = currentScroll;
   }
 
@@ -56,10 +56,10 @@ document.addEventListener('DOMContentLoaded', function() {
   // Smooth Scroll for Anchor Links
   // ========================================
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+    anchor.addEventListener('click', function (e) {
       const targetId = this.getAttribute('href');
       if (targetId === '#') return;
-      
+
       const target = document.querySelector(targetId);
       if (target) {
         e.preventDefault();
@@ -79,19 +79,19 @@ document.addEventListener('DOMContentLoaded', function() {
   // Contact Form Handling
   // ========================================
   const contactForm = document.getElementById('contact-form');
-  
+
   if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.addEventListener('submit', function (e) {
       // If using Formspree, let it handle the submission
       // For mailto fallback, uncomment below:
-      
+
       // e.preventDefault();
       // const formData = new FormData(this);
       // const name = formData.get('name');
       // const email = formData.get('email');
       // const message = formData.get('message');
       // const subject = `Enquiry from ${name}`;
-      // const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+      // const body = `Name: ${name}\\nEmail: ${email}\\n\\nMessage:\\n${message}`;
       // window.location.href = `mailto:info@matfordmfg.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
   }
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Lazy Loading for Images
   // ========================================
   const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-  
+
   if ('IntersectionObserver' in window) {
     const imageObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
@@ -119,11 +119,35 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // ========================================
-  // Video Playback Management
+  // Video Playback Management (Mobile-Friendly)
   // ========================================
   const heroVideo = document.querySelector('.hero-video');
-  
+
   if (heroVideo) {
+    // Force play attempt after load for mobile browsers
+    heroVideo.addEventListener('loadeddata', function () {
+      const playPromise = heroVideo.play();
+
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          // Autoplay was prevented - this is normal on mobile
+          console.log('Autoplay prevented, will play on user interaction');
+
+          // Try to play on first user interaction
+          const playOnInteraction = function () {
+            heroVideo.play();
+            document.removeEventListener('touchstart', playOnInteraction);
+            document.removeEventListener('click', playOnInteraction);
+            document.removeEventListener('scroll', playOnInteraction);
+          };
+
+          document.addEventListener('touchstart', playOnInteraction, { once: true });
+          document.addEventListener('click', playOnInteraction, { once: true });
+          document.addEventListener('scroll', playOnInteraction, { once: true, passive: true });
+        });
+      }
+    });
+
     // Pause video when not visible to save resources
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -140,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
     videoObserver.observe(heroVideo);
 
     // Handle video loading errors
-    heroVideo.addEventListener('error', function() {
+    heroVideo.addEventListener('error', function () {
       console.warn('Video failed to load, showing poster image');
     });
   }
@@ -149,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Animate Elements on Scroll
   // ========================================
   const animateElements = document.querySelectorAll('.feature-card, .service-card, .value-card, .card');
-  
+
   if ('IntersectionObserver' in window && animateElements.length > 0) {
     const animateObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry, index) => {
