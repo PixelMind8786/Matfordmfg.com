@@ -10,6 +10,10 @@
     const dotsContainer = document.querySelector('.carousel-dots');
 
     let currentIndex = 0;
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+    let startTransform = 0;
 
     // Create navigation dots
     slides.forEach((_, index) => {
@@ -65,6 +69,47 @@
     // Button event listeners
     if (nextButton) nextButton.addEventListener('click', nextSlide);
     if (prevButton) prevButton.addEventListener('click', prevSlide);
+
+    // Touch swipe functionality (MOBILE ONLY - no mouse drag)
+    function handleTouchStart(e) {
+        isDragging = true;
+        startX = e.touches[0].pageX;
+        startTransform = currentIndex * -100;
+    }
+
+    function handleTouchMove(e) {
+        if (!isDragging) return;
+
+        currentX = e.touches[0].pageX;
+        const diff = currentX - startX;
+        const percentDiff = (diff / track.offsetWidth) * 100;
+
+        track.style.transition = 'none';
+        track.style.transform = `translateX(${startTransform + percentDiff}%)`;
+    }
+
+    function handleTouchEnd(e) {
+        if (!isDragging) return;
+        isDragging = false;
+
+        const diff = currentX - startX;
+        const threshold = track.offsetWidth * 0.2; // 20% swipe threshold
+
+        if (Math.abs(diff) > threshold) {
+            if (diff > 0) {
+                prevSlide();
+            } else {
+                nextSlide();
+            }
+        } else {
+            updateCarousel();
+        }
+    }
+
+    // Touch events ONLY (no mouse events)
+    track.addEventListener('touchstart', handleTouchStart, { passive: true });
+    track.addEventListener('touchmove', handleTouchMove, { passive: false });
+    track.addEventListener('touchend', handleTouchEnd);
 
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
