@@ -21,14 +21,10 @@
     width: 100%;
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
-    cursor: grab;
+
     user-select: none;
 }
 
-.carousel-track.grabbing {
-    cursor: grabbing;
-    transition: none;
-}
 
 .carousel-slide {
     flex: 0 0 100%;
